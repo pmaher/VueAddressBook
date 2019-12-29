@@ -1,15 +1,11 @@
 <template>
-    <div>
-        <SearchBar></SearchBar>
+    <div class="ui container">
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-import SearchBar from './components/SearchBar';
 export default {
-    name: 'App',
-    components: {
-        SearchBar
-    }
+    name: 'App'
 };
 </script>
