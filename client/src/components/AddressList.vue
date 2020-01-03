@@ -1,7 +1,11 @@
 <template>
     <div>
         <SearchBar></SearchBar>
-        List of addresses
+        <ul>
+            <li :key="address.id" v-for="address in allAddresses">
+                address.id
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -14,8 +18,7 @@ export default {
     computed: mapGetters(['allAddresses']),
     methods: mapActions(['fetchAddresses']),
     created() {
-        console.log('this is where we make the fetch addresses ajax call');
-        //this.fetchAddresses();
+        this.fetchAddresses();
     },
     components: {
         SearchBar
