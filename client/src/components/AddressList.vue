@@ -3,7 +3,7 @@
         <SearchBar></SearchBar>
         <ul>
             <li :key="address.id" v-for="address in allAddresses">
-                address.id
+                {{ address.id }}
             </li>
         </ul>
     </div>

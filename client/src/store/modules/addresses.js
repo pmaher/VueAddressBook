@@ -11,7 +11,8 @@ const getters = {
 const actions = {
     async fetchAddresses({rootState, commit}) {
         const response = await api.fetchAddresses();
-        commit('setAddresses', response.data.data);
+        debugger;
+        commit('setAddresses', response.data);
     }
 };
 
