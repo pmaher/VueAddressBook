@@ -1,11 +1,16 @@
 <template>
     <div>
         <SearchBar></SearchBar>
-        <ul>
-            <li :key="address.id" v-for="address in allAddresses">
-                {{ address.id }}
-            </li>
-        </ul>
+        <div class="ui internally celled grid">
+            <div :key="address.id" v-for="address in allAddresses" class="row">
+                
+                <div class="three wide column">{{ address.firstName }}</div>
+                <div class="three wide column">{{ address.lastName }}</div>
+                <div class="six wide column">{{ address.email }}</div>
+                <div class="four wide column">{{ address.phone }}</div>
+                
+            </div>
+        </div>
     </div>
 </template>
 
