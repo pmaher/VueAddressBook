@@ -1,16 +1,34 @@
 <template>
     <div>
         <SearchBar></SearchBar>
-        <div class="ui internally celled grid">
-            <div :key="address.id" v-for="address in allAddresses" class="row">
-                
-                <div class="three wide column">{{ address.firstName }}</div>
-                <div class="three wide column">{{ address.lastName }}</div>
-                <div class="six wide column">{{ address.email }}</div>
-                <div class="four wide column">{{ address.phone }}</div>
-                
-            </div>
-        </div>
+        <table class="ui celled structured table">
+            <thead>
+                <tr>
+                    <th>First</th>
+                    <th>Last</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th colspan="2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr :key="address.id" v-for="address in allAddresses">
+                    <td>{{ address.firstName }}</td>
+                    <td>{{ address.lastName }}</td>
+                    <td>{{ address.email }}</td>
+                    <td>{{ address.phone }}</td>
+                    <td></td>
+                    <td></td>    
+                </tr>
+            </tbody>
+            <tfoot class="full-width">
+                <th colspan="6">
+                    <div class="ui right floated small primary labeled icon button">
+                        <i class="user icon"></i> Add Address
+                    </div>    
+                </th>
+            </tfoot>
+        </table>
     </div>
 </template>
 
