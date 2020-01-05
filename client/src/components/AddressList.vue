@@ -12,14 +12,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr :key="address.id" v-for="address in allAddresses">
-                    <td>{{ address.firstName }}</td>
-                    <td>{{ address.lastName }}</td>
-                    <td>{{ address.email }}</td>
-                    <td>{{ address.phone }}</td>
-                    <td></td>
-                    <td></td>    
-                </tr>
+                <AddressRow
+                    v-for="theAddress in allAddresses"
+                    :address="theAddress"
+                    :key="theAddress.id"
+                />
             </tbody>
             <tfoot class="full-width">
                 <th colspan="6">
@@ -34,8 +31,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-
 import SearchBar from './SearchBar';
+import AddressRow from './AddressRow';
 export default {
     name: 'AddressList',
     computed: mapGetters(['allAddresses']),
@@ -44,7 +41,8 @@ export default {
         this.fetchAddresses();
     },
     components: {
-        SearchBar
+        SearchBar,
+        AddressRow
     }
 }
 </script>
