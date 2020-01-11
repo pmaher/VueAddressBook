@@ -9,7 +9,7 @@
     <div class="right menu">
       <div class="item">
         <div class="ui transparent icon input">
-          <input type="text" placeholder="Search..." @input="onInput" />
+          <input type="text" placeholder="Search..." @input="filterAddresses($event.target.value)" />
           <i class="search link icon"></i>
         </div>
       </div>
@@ -18,13 +18,11 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
   name: "SearchBar",
-  methods: {
-    onInput: function(event) {
-      console.log(event.target.value);
-    }
-  }
+  methods: mapMutations(['filterAddresses'])
 };
 </script>
 

@@ -13,7 +13,7 @@
             </thead>
             <tbody>
                 <AddressRow
-                    v-for="theAddress in allAddresses"
+                    v-for="theAddress in filteredAddresses"
                     :address="theAddress"
                     :key="theAddress.id"
                 />
@@ -35,7 +35,7 @@ import SearchBar from './SearchBar';
 import AddressRow from './AddressRow';
 export default {
     name: 'AddressList',
-    computed: mapGetters(['allAddresses']),
+    computed: mapGetters(['allAddresses', 'filteredAddresses']),
     methods: mapActions(['fetchAddresses']),
     created() {
         this.fetchAddresses();
