@@ -3,7 +3,7 @@
         <td>{{ address.firstName }}</td>
         <td>{{ address.lastName }}</td>
         <td>{{ address.email }}</td>
-        <td>{{ address.phone }}</td>
+        <td>{{ formattedPhone }}</td>
         <td class="action">
             <button class="ui icon button">
                 <i class="edit icon"></i>
@@ -19,7 +19,12 @@
 <script>
 export default {
     name: 'AddressRow',
-    props: ['address']
+    props: ['address'],
+    computed: {
+        formattedPhone() {
+            return this.address.phone.replace(/(\d{1,3})(\d{1,3})(\d{1,4})/g, '($1) $2-$3')
+        }
+    }
 }
 </script>
 <style scoped>
