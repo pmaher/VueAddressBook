@@ -1,4 +1,5 @@
 import api from '../../api/addresses';
+import { router } from '../../main';
 
 const state = {
     addresses: [],
@@ -12,9 +13,14 @@ const getters = {
 };
 
 const actions = {
-    async fetchAddresses({rootState, commit}) {
+    async fetchAddresses({commit}) {
         const response = await api.fetchAddresses();
         commit('setAddresses', response.data);
+    },
+    async deleteAddress(context, id) {
+        await api.deleteAddress(id);
+        //refresh current page
+        router.go();
     }
 };
 

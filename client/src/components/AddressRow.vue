@@ -10,16 +10,18 @@
             </button>
         </td>
         <td class="action">
-            <button class="ui icon button">
+            <button class="ui icon button" @click="deleteAddress(address.id)">
                 <i class="trash icon"></i>
             </button>
         </td>
     </tr>
 </template>
 <script>
+import { mapActions } from 'vuex';
 export default {
     name: 'AddressRow',
     props: ['address'],
+    methods: mapActions(['deleteAddress']),
     computed: {
         formattedPhone() {
             return this.address.phone.replace(/(\d{1,3})(\d{1,3})(\d{1,4})/g, '($1) $2-$3')

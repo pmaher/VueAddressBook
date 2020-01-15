@@ -4,5 +4,8 @@ import axios from 'axios';
 export default {
     fetchAddresses() {
         return axios.get(`/api/address`);
+    },
+    deleteAddress(id) {
+        return axios.delete(`/api/address/${id}`);
     }
 }
