@@ -7,5 +7,8 @@ export default {
     },
     deleteAddress(id) {
         return axios.delete(`/api/address/${id}`);
+    },
+    fetchAddress(id) {
+        return axios.get(`/api/address/${id}`);
     }
 }

@@ -4,12 +4,14 @@ import { router } from '../../main';
 const state = {
     addresses: [],
     filteredAddresses: [],
-    filter: ''
+    filter: '',
+    editingAddress: {}
 };
 
 const getters = {
     filteredAddresses: state => state.filteredAddresses,
-    allAddresses: state => state.addresses
+    allAddresses: state => state.addresses,
+    editingAddress: state => state.editingAddress
 };
 
 const actions = {
@@ -21,6 +23,10 @@ const actions = {
         await api.deleteAddress(id);
         //refresh current page
         router.go();
+    },
+    async fetchAddress({commit}, id) {
+        const response = await api.fetchAddress(id);
+        commit('setEditingAddress', response.data);
     }
 };
 
@@ -37,6 +43,9 @@ const mutations = {
     setAddresses: (state, addresses) => {
         state.filteredAddresses = addresses;
         state.addresses = addresses;
+    },
+    setEditingAddress: (state, address) => {
+        state.editingAddress = address;
     }
 };
 
