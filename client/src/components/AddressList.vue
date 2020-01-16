@@ -12,6 +12,9 @@
                 </tr>
             </thead>
             <tbody>
+                <tr v-if="!filteredAddresses.length">
+                    <td colspan="6">No addresses found.</td>
+                </tr>
                 <AddressRow
                     v-for="theAddress in filteredAddresses"
                     :address="theAddress"
