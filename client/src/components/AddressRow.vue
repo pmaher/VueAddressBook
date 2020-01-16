@@ -5,7 +5,7 @@
         <td>{{ address.email }}</td>
         <td>{{ formattedPhone }}</td>
         <td class="action">
-            <button class="ui icon button">
+            <button class="ui icon button" @click="editAddress(address.id)">
                 <i class="edit icon"></i>
             </button>
         </td>
@@ -21,7 +21,12 @@ import { mapActions } from 'vuex';
 export default {
     name: 'AddressRow',
     props: ['address'],
-    methods: mapActions(['deleteAddress']),
+    methods: {
+        ...mapActions(['deleteAddress']),
+        editAddress(id) {
+            this.$router.push(`/edit/${id}`);
+        }
+    },
     computed: {
         formattedPhone() {
             return this.address.phone.replace(/(\d{1,3})(\d{1,3})(\d{1,4})/g, '($1) $2-$3')

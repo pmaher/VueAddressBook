@@ -38,7 +38,9 @@ import SearchBar from './SearchBar';
 import AddressRow from './AddressRow';
 export default {
     name: 'AddressList',
-    computed: mapGetters(['allAddresses', 'filteredAddresses']),
+    computed: {
+        ...mapGetters(['filteredAddresses'])
+    },
     methods: mapActions(['fetchAddresses']),
     created() {
         this.fetchAddresses();
