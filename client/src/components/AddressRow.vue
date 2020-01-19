@@ -29,7 +29,7 @@ export default {
     },
     computed: {
         formattedPhone() {
-            return this.address.phone.replace(/(\d{1,3})(\d{1,3})(\d{1,4})/g, '($1) $2-$3')
+            return this.address.phone ? this.address.phone.replace(/(\d{1,3})(\d{1,3})(\d{1,4})/g, '($1) $2-$3'): '';
         }
     }
 }

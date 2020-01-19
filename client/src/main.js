@@ -11,8 +11,8 @@ export const router = new VueRouter({
     //use browser router mode rather than hashrouter
     mode: 'history',
     routes: [
-        { path: '/', component: AddressList },
-        { path: '/edit/:id', component: EditAddress }
+        { path: '/', name: 'home', component: AddressList },
+        { path: '/edit/:id', name: 'editAddress', component: EditAddress }
     ]
 });
 

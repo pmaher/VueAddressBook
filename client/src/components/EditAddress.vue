@@ -1,36 +1,36 @@
 <template>
     <div class="ui container">
-        <form class="ui form">
+        <div class="ui form">
             <h2 class="ui dividing header">Edit Address</h2>
             <div class="two fields">
                 <div class="field">
                     <label>First Name</label>
-                    <input type="text" name="shipping[first-name]" placeholder="First Name" :value="editingAddress.firstName">
+                    <input type="text" name="shipping[first-name]" placeholder="First Name" v-model="editingAddress.firstName">
                 </div>
                 <div class="field">
                     <label>Last Name</label>
-                    <input type="text" name="shipping[last-name]" placeholder="Last Name" :value="editingAddress.lastName">
+                    <input type="text" name="shipping[last-name]" placeholder="Last Name" v-model="editingAddress.lastName">
                 </div>
             </div>
             <div class="field">
                 <label>Billing Address</label>
                 <div class="fields">
                     <div class="twelve wide field">
-                        <input type="text" name="shipping[address]" placeholder="Street Address" :value="editingAddress.address">
+                        <input type="text" name="shipping[address]" placeholder="Street Address" v-model="editingAddress.address">
                     </div>
                     <div class="four wide field">
-                        <input type="text" name="shipping[address-2]" placeholder="Apt #" :value="editingAddress.address2">
+                        <input type="text" name="shipping[address-2]" placeholder="Apt #" v-model="editingAddress.address2">
                     </div>
                 </div>
             </div>
             <div class="three fields">
                 <div class="five wide field">
                     <label>City</label>
-                    <input type="text" name="shipping[city]" placeholder="City" :value="editingAddress.city">
+                    <input type="text" name="shipping[city]" placeholder="City" v-model="editingAddress.city">
                 </div>
                 <div class="four wide field">
                     <label>State</label>
-                    <select class="ui fluid dropdown" :value="editingAddress.state">
+                    <select class="ui fluid dropdown" v-model="editingAddress.state">
                         <option value="">State</option>
                         <option value="AL">Alabama</option>
                         <option value="AK">Alaska</option>
@@ -87,14 +87,24 @@
                 </div>
                 <div class="four wide field">
                     <label>Zip</label>
-                    <input type="text" name="shipping[zipcode]" placeholder="Zip" :value="editingAddress.zipcode">
+                    <input type="text" name="shipping[zipcode]" placeholder="Zip" v-model="editingAddress.zipcode">
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="six wide field">
+                    <label>Email</label>
+                    <input type="text" name="shipping[email]" placeholder="Email" v-model="editingAddress.email">
+                </div>
+                <div class="six wide field">
+                    <label>Phone</label>
+                    <input type="text" name="shipping[phone]" placeholder="Phone" v-model="editingAddress.phone">
                 </div>
             </div>
             <div class="">
-                <button class="ui primary button right floated">Save</button>
+                <button class="ui primary button right floated" @click="updateAddress(editingAddress)">Save</button>
                 <button class="ui button right floated" @click="cancelEdit">Cancel</button>
             </div>
-        </form>
+        </div>
     </div>
 </template>
 <script>
@@ -102,7 +112,7 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
     name: 'EditAddress',
     methods: {
-        ...mapActions(['fetchAddress']),
+        ...mapActions(['fetchAddress', 'updateAddress']),
         cancelEdit() {
             this.$router.push(`/`);
         }

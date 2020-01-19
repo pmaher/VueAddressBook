@@ -27,6 +27,10 @@ const actions = {
     async fetchAddress({commit}, id) {
         const response = await api.fetchAddress(id);
         commit('setEditingAddress', response.data);
+    },
+    async updateAddress(context, address) {
+        await api.updateAddress(address);
+        router.push({ name: 'home' });
     }
 };
 

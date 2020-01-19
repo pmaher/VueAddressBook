@@ -10,5 +10,8 @@ export default {
     },
     fetchAddress(id) {
         return axios.get(`/api/address/${id}`);
+    },
+    updateAddress(address) {
+        return axios.put(`/api/address/${address.id}`, address);
     }
 }
