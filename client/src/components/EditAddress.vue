@@ -20,11 +20,10 @@
                     <div class="ui red pointing prompt label" v-if="!$v.editingAddress.lastName.minLength">Last name must have at least {{ $v.editingAddress.lastName.$params.minLength.min }} letters.</div>
                 </div>
             </div>
-            <div class="field">
-                
-                <div class="fields">
-                    <div class="twelve wide field" :class="$v.editingAddress.address.$error ? 'form-group--error error' : ''">
-                        <label>Billing Address</label>
+            <div class="field" :class="$v.editingAddress.address.$error ? 'form-group--error error' : ''">
+                <label>Billing Address</label>
+                <div class="fields" >
+                    <div class="twelve wide field">
                         <input type="text" name="shipping[address]" placeholder="Street Address" 
                             v-model="editingAddress.address"
                             @input="$v.editingAddress.address.$touch();">
@@ -110,7 +109,7 @@
                         v-model="editingAddress.zipcode"
                         @input="$v.editingAddress.zipcode.$touch();">
                     <div class="ui red pointing prompt label" v-if="!$v.editingAddress.zipcode.required">Zipcode is required.</div>
-                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.zipcode.minLength">Zipcode must have at least {{ $v.editingAddress.zipcode.$params.minLength.min }} characters.</div>
+                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.zipcode.zipcode">You must provide a valid zipcode.</div>
                 </div>
             </div>
             <div class="two fields">
@@ -124,11 +123,9 @@
                 </div>
                 <div class="six wide field" :class="$v.editingAddress.phone.$error ? 'form-group--error error' : ''">
                     <label>Phone</label>
-                    <input type="text" name="shipping[phone]" placeholder="Phone" 
-                        v-model="editingAddress.phone"
-                        @input="$v.editingAddress.phone.$touch();">
+                    <TheMask mask="(###) ###-####" v-model="editingAddress.phone" type="text" placeholder="(999) 999-9999"></TheMask>
                     <div class="ui red pointing prompt label" v-if="!$v.editingAddress.phone.required">Phone is required.</div>
-                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.phone.minLength">Phone must have at least {{ $v.editingAddress.zipcode.$params.minLength.min }} characters.</div>
+                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.phone.minLength">Please enter a valid phone number.</div>
                 </div>
             </div>
             <div>
@@ -141,6 +138,12 @@
 <script>
 import { required, email, minLength, between } from "vuelidate/lib/validators";
 import { mapActions, mapGetters } from 'vuex';
+import { TheMask } from 'vue-the-mask';
+const zipcode = (value) => {
+    if (!value) return true;
+    const regex = /^\d{1,5}$/;
+    return regex.test(value);
+}
 export default {
     name: 'EditAddress',
     methods: {
@@ -149,6 +152,7 @@ export default {
             this.$router.push(`/`);
         },
         validateAndSubmit(address) {
+            debugger;
             if (this.$v.$invalid) {
                 this.submitStatus = 'ERROR'
             } else {
@@ -185,7 +189,7 @@ export default {
             },
             zipcode: {
                 required,
-                minLength: minLength(4)
+                zipcode
             },
             email: {
                 required,
@@ -193,13 +197,12 @@ export default {
             },
             phone: {
                 required,
-                minLength: minLength(4)
+                minLength: minLength(10)
             },
-        }
-
-        // age: {
-        //     between: between(20, 30)
-        // }
+        },
+    },
+    components: { 
+        TheMask 
     }
 }
 </script>
