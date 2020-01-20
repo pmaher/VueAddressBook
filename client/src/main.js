@@ -4,8 +4,10 @@ import App from './App';
 import store from './store';
 import AddressList from './components/AddressList';
 import EditAddress from './components/EditAddress';
+import Vuelidate from "vuelidate";
 
 Vue.use(VueRouter);
+Vue.use(Vuelidate);
 
 export const router = new VueRouter({
     //use browser router mode rather than hashrouter

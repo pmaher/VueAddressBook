@@ -3,20 +3,33 @@
         <div class="ui form">
             <h2 class="ui dividing header">Edit Address</h2>
             <div class="two fields">
-                <div class="field">
+                <div class="field" :class="$v.editingAddress.firstName.$error ? 'form-group--error error' : ''">
                     <label>First Name</label>
-                    <input type="text" name="shipping[first-name]" placeholder="First Name" v-model="editingAddress.firstName">
+                    <input type="text" name="shipping[first-name]" placeholder="First Name" 
+                            v-model="editingAddress.firstName"
+                            @input="$v.editingAddress.firstName.$touch();">
+                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.firstName.required">First name is required.</div>
+                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.firstName.minLength">First name must have at least {{ $v.editingAddress.firstName.$params.minLength.min }} letters.</div>
                 </div>
-                <div class="field">
+                <div class="field" :class="$v.editingAddress.lastName.$error ? 'form-group--error error' : ''">
                     <label>Last Name</label>
-                    <input type="text" name="shipping[last-name]" placeholder="Last Name" v-model="editingAddress.lastName">
+                    <input type="text" name="shipping[last-name]" placeholder="Last Name" 
+                        v-model="editingAddress.lastName"
+                        @input="$v.editingAddress.lastName.$touch();">
+                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.lastName.required">Last name is required.</div>
+                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.lastName.minLength">Last name must have at least {{ $v.editingAddress.lastName.$params.minLength.min }} letters.</div>
                 </div>
             </div>
             <div class="field">
-                <label>Billing Address</label>
+                
                 <div class="fields">
-                    <div class="twelve wide field">
-                        <input type="text" name="shipping[address]" placeholder="Street Address" v-model="editingAddress.address">
+                    <div class="twelve wide field" :class="$v.editingAddress.address.$error ? 'form-group--error error' : ''">
+                        <label>Billing Address</label>
+                        <input type="text" name="shipping[address]" placeholder="Street Address" 
+                            v-model="editingAddress.address"
+                            @input="$v.editingAddress.address.$touch();">
+                        <div class="ui red pointing prompt label" v-if="!$v.editingAddress.address.required">Street address is required.</div>
+                        <div class="ui red pointing prompt label" v-if="!$v.editingAddress.address.minLength">Street address must have at least {{ $v.editingAddress.address.$params.minLength.min }} letters.</div>
                     </div>
                     <div class="four wide field">
                         <input type="text" name="shipping[address-2]" placeholder="Apt #" v-model="editingAddress.address2">
@@ -24,13 +37,18 @@
                 </div>
             </div>
             <div class="three fields">
-                <div class="five wide field">
+                <div class="five wide field" :class="$v.editingAddress.city.$error ? 'form-group--error error' : ''">
                     <label>City</label>
-                    <input type="text" name="shipping[city]" placeholder="City" v-model="editingAddress.city">
+                    <input type="text" name="shipping[city]" placeholder="City" 
+                    v-model="editingAddress.city"
+                    @input="$v.editingAddress.city.$touch();">
+                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.city.required">Street address is required.</div>
+                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.city.minLength">Street address must have at least {{ $v.editingAddress.city.$params.minLength.min }} letters.</div>
                 </div>
-                <div class="four wide field">
+                <div class="four wide field" :class="$v.editingAddress.state.$error ? 'form-group--error error' : ''">
                     <label>State</label>
-                    <select class="ui fluid dropdown" v-model="editingAddress.state">
+                    <select class="ui fluid dropdown" v-model="editingAddress.state"
+                        @change="$v.editingAddress.state.$touch();">
                         <option value="">State</option>
                         <option value="AL">Alabama</option>
                         <option value="AK">Alaska</option>
@@ -84,30 +102,44 @@
                         <option value="WI">Wisconsin</option>
                         <option value="WY">Wyoming</option>
                     </select>
+                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.state.required">State is required.</div>
                 </div>
-                <div class="four wide field">
+                <div class="four wide field" :class="$v.editingAddress.zipcode.$error ? 'form-group--error error' : ''">
                     <label>Zip</label>
-                    <input type="text" name="shipping[zipcode]" placeholder="Zip" v-model="editingAddress.zipcode">
+                    <input type="text" name="shipping[zipcode]" placeholder="Zip" 
+                        v-model="editingAddress.zipcode"
+                        @input="$v.editingAddress.zipcode.$touch();">
+                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.zipcode.required">Zipcode is required.</div>
+                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.zipcode.minLength">Zipcode must have at least {{ $v.editingAddress.zipcode.$params.minLength.min }} characters.</div>
                 </div>
             </div>
             <div class="two fields">
-                <div class="six wide field">
+                <div class="six wide field" :class="$v.editingAddress.email.$error ? 'form-group--error error' : ''">
                     <label>Email</label>
-                    <input type="text" name="shipping[email]" placeholder="Email" v-model="editingAddress.email">
+                    <input type="text" name="shipping[email]" placeholder="Email" 
+                        v-model="editingAddress.email"
+                        @input="$v.editingAddress.email.$touch();">
+                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.email.required">Email is required.</div>
+                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.email.email">You must provide a valid email address.</div>
                 </div>
-                <div class="six wide field">
+                <div class="six wide field" :class="$v.editingAddress.phone.$error ? 'form-group--error error' : ''">
                     <label>Phone</label>
-                    <input type="text" name="shipping[phone]" placeholder="Phone" v-model="editingAddress.phone">
+                    <input type="text" name="shipping[phone]" placeholder="Phone" 
+                        v-model="editingAddress.phone"
+                        @input="$v.editingAddress.phone.$touch();">
+                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.phone.required">Phone is required.</div>
+                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.phone.minLength">Phone must have at least {{ $v.editingAddress.zipcode.$params.minLength.min }} characters.</div>
                 </div>
             </div>
-            <div class="">
-                <button class="ui primary button right floated" @click="updateAddress(editingAddress)">Save</button>
+            <div>
+                <button class="ui primary button right floated" @click="validateAndSubmit(editingAddress)">Save</button>
                 <button class="ui button right floated" @click="cancelEdit">Cancel</button>
             </div>
         </div>
     </div>
 </template>
 <script>
+import { required, email, minLength, between } from "vuelidate/lib/validators";
 import { mapActions, mapGetters } from 'vuex';
 export default {
     name: 'EditAddress',
@@ -115,6 +147,13 @@ export default {
         ...mapActions(['fetchAddress', 'updateAddress']),
         cancelEdit() {
             this.$router.push(`/`);
+        },
+        validateAndSubmit(address) {
+            if (this.$v.$invalid) {
+                this.submitStatus = 'ERROR'
+            } else {
+                this.submitStatus = 'Good'
+            }
         }
     },
     computed: {
@@ -123,6 +162,45 @@ export default {
     created() {
         this.fetchAddress(this.$route.params.id);
     },
+    validations: {
+        editingAddress : {
+            firstName: {
+                required,
+                minLength: minLength(4)
+            },
+            lastName: {
+                required,
+                minLength: minLength(4)
+            },
+            address: {
+                required,
+                minLength: minLength(4)
+            },
+            city: {
+                required,
+                minLength: minLength(4)
+            },
+            state: {
+                required
+            },
+            zipcode: {
+                required,
+                minLength: minLength(4)
+            },
+            email: {
+                required,
+                email
+            },
+            phone: {
+                required,
+                minLength: minLength(4)
+            },
+        }
+
+        // age: {
+        //     between: between(20, 30)
+        // }
+    }
 }
 </script>
 <style scoped>
