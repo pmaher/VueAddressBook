@@ -9,7 +9,6 @@
                             v-model="editingAddress.firstName"
                             @input="$v.editingAddress.firstName.$touch();">
                     <div class="ui red pointing prompt label" v-if="!$v.editingAddress.firstName.required">First name is required.</div>
-                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.firstName.minLength">First name must have at least {{ $v.editingAddress.firstName.$params.minLength.min }} letters.</div>
                 </div>
                 <div class="field" :class="$v.editingAddress.lastName.$error ? 'form-group--error error' : ''">
                     <label>Last Name</label>
@@ -17,7 +16,6 @@
                         v-model="editingAddress.lastName"
                         @input="$v.editingAddress.lastName.$touch();">
                     <div class="ui red pointing prompt label" v-if="!$v.editingAddress.lastName.required">Last name is required.</div>
-                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.lastName.minLength">Last name must have at least {{ $v.editingAddress.lastName.$params.minLength.min }} letters.</div>
                 </div>
             </div>
             <div class="field" :class="$v.editingAddress.address.$error ? 'form-group--error error' : ''">
@@ -28,7 +26,6 @@
                             v-model="editingAddress.address"
                             @input="$v.editingAddress.address.$touch();">
                         <div class="ui red pointing prompt label" v-if="!$v.editingAddress.address.required">Street address is required.</div>
-                        <div class="ui red pointing prompt label" v-if="!$v.editingAddress.address.minLength">Street address must have at least {{ $v.editingAddress.address.$params.minLength.min }} letters.</div>
                     </div>
                     <div class="four wide field">
                         <input type="text" name="shipping[address-2]" placeholder="Apt #" v-model="editingAddress.address2">
@@ -42,7 +39,6 @@
                     v-model="editingAddress.city"
                     @input="$v.editingAddress.city.$touch();">
                     <div class="ui red pointing prompt label" v-if="!$v.editingAddress.city.required">Street address is required.</div>
-                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.city.minLength">Street address must have at least {{ $v.editingAddress.city.$params.minLength.min }} letters.</div>
                 </div>
                 <div class="four wide field" :class="$v.editingAddress.state.$error ? 'form-group--error error' : ''">
                     <label>State</label>
@@ -141,7 +137,7 @@ import { mapActions, mapGetters } from 'vuex';
 import { TheMask } from 'vue-the-mask';
 const zipcode = (value) => {
     if (!value) return true;
-    const regex = /^\d{1,5}$/;
+    const regex = /^\d{5}(?:[-\s]\d{4})?$/;
     return regex.test(value);
 }
 export default {
@@ -152,12 +148,10 @@ export default {
             this.$router.push(`/`);
         },
         validateAndSubmit(address) {
-            debugger;
-            if (this.$v.$invalid) {
-                this.submitStatus = 'ERROR'
-            } else {
-                this.submitStatus = 'Good'
-            }
+            //exit immediately if the form is invalid
+            if (this.$v.$invalid) { return; }
+
+            this.updateAddress(address);
         }
     },
     computed: {
@@ -168,25 +162,11 @@ export default {
     },
     validations: {
         editingAddress : {
-            firstName: {
-                required,
-                minLength: minLength(4)
-            },
-            lastName: {
-                required,
-                minLength: minLength(4)
-            },
-            address: {
-                required,
-                minLength: minLength(4)
-            },
-            city: {
-                required,
-                minLength: minLength(4)
-            },
-            state: {
-                required
-            },
+            firstName: { required },
+            lastName: { required },
+            address: { required },
+            city: { required },
+            state: { required },
             zipcode: {
                 required,
                 zipcode
