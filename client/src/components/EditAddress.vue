@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="field" :class="$v.editingAddress.address.$error ? 'form-group--error error' : ''">
-                <label>Billing Address</label>
+                <label>Address</label>
                 <div class="fields" >
                     <div class="twelve wide field">
                         <input type="text" name="shipping[address]" placeholder="Street Address" 
@@ -38,7 +38,7 @@
                     <input type="text" name="shipping[city]" placeholder="City" 
                     v-model="editingAddress.city"
                     @input="$v.editingAddress.city.$touch();">
-                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.city.required">Street address is required.</div>
+                    <div class="ui red pointing prompt label" v-if="!$v.editingAddress.city.required">City is required.</div>
                 </div>
                 <div class="four wide field" :class="$v.editingAddress.state.$error ? 'form-group--error error' : ''">
                     <label>State</label>
@@ -125,7 +125,8 @@
                 </div>
             </div>
             <div>
-                <button class="ui primary button right floated" @click="validateAndSubmit(editingAddress)">Save</button>
+                <button class="ui primary button right floated" :class="$v.$invalid ? 'disabled' : ''" 
+                        @click="validateAndSubmit(editingAddress)">Save</button>
                 <button class="ui button right floated" @click="cancelEdit">Cancel</button>
             </div>
         </div>
