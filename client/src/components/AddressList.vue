@@ -23,9 +23,9 @@
             </tbody>
             <tfoot class="full-width">
                 <th colspan="6">
-                    <div class="ui right floated small primary labeled icon button">
+                    <button class="ui right floated small primary labeled icon button" @click="newAddress">
                         <i class="user icon"></i> Add Address
-                    </div>    
+                    </button>    
                 </th>
             </tfoot>
         </table>
@@ -41,7 +41,12 @@ export default {
     computed: {
         ...mapGetters(['filteredAddresses'])
     },
-    methods: mapActions(['fetchAddresses']),
+    methods: {
+        ...mapActions(['fetchAddresses']),
+        newAddress() {
+            this.$router.push(`/new`);
+        }
+    },
     created() {
         this.fetchAddresses();
     },

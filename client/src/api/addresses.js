@@ -13,5 +13,8 @@ export default {
     },
     updateAddress(address) {
         return axios.put(`/api/address/${address.id}`, address);
+    },
+    createAddress(address) {
+        return axios.post(`/api/address`, address);
     }
 }

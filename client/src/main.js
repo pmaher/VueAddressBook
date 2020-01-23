@@ -4,6 +4,7 @@ import App from './App';
 import store from './store';
 import AddressList from './components/AddressList';
 import EditAddress from './components/EditAddress';
+import NewAddress from './components/NewAddress';
 import Vuelidate from "vuelidate";
 
 Vue.use(VueRouter);
@@ -14,7 +15,8 @@ export const router = new VueRouter({
     mode: 'history',
     routes: [
         { path: '/', name: 'home', component: AddressList },
-        { path: '/edit/:id', name: 'editAddress', component: EditAddress }
+        { path: '/edit/:id', name: 'editAddress', component: EditAddress },
+        { path: '/new', name: 'newAddress', component: NewAddress }
     ]
 });
 

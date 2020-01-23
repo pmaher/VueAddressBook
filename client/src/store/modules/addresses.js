@@ -31,6 +31,10 @@ const actions = {
     async updateAddress(context, address) {
         await api.updateAddress(address);
         router.push({ name: 'home' });
+    },
+    async createAddress(context, address) {
+        await api.createAddress(address);
+        router.push({name: 'home'});
     }
 };
 
