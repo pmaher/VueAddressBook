@@ -5,13 +5,13 @@ const state = {
     addresses: [],
     filteredAddresses: [],
     filter: '',
-    editingAddress: {}
+    address: {}
 };
 
 const getters = {
     filteredAddresses: state => state.filteredAddresses,
     allAddresses: state => state.addresses,
-    editingAddress: state => state.editingAddress
+    address: state => state.address
 };
 
 const actions = {
@@ -26,7 +26,7 @@ const actions = {
     },
     async fetchAddress({commit}, id) {
         const response = await api.fetchAddress(id);
-        commit('setEditingAddress', response.data);
+        commit('setAddress', response.data);
     },
     async updateAddress(context, address) {
         await api.updateAddress(address);
@@ -52,8 +52,8 @@ const mutations = {
         state.filteredAddresses = addresses;
         state.addresses = addresses;
     },
-    setEditingAddress: (state, address) => {
-        state.editingAddress = address;
+    setAddress: (state, address) => {
+        state.address = address;
     }
 };
 
