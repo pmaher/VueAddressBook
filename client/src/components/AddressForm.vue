@@ -87,12 +87,8 @@
 <script>
 import { required, email, minLength, between } from "vuelidate/lib/validators";
 import { TheMask } from 'vue-the-mask';
-import states from './states/states.json';
-const zipcode = (value) => {
-    if (!value) return true;
-    const regex = /^\d{5}(?:[-\s]\d{4})?$/;
-    return regex.test(value);
-}
+import states from './fields/states.json';
+import zipcode from './fields/zipcodeValidator'
 export default {
     name: 'AddressForm',
     stateJson: states,
