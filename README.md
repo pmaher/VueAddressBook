@@ -17,6 +17,7 @@ With this little app you'll be able to add addresses, update an address, view ad
 ### Startup the client server
 ```
 cd client
+npm install
 npm run serve
 ```
 
